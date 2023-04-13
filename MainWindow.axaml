@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:BlurMaskExample"
+        mc:Ignorable="d"
+        x:Class="BlurMaskExample.MainWindow"
+        Title="BlurMaskExample"
+        Width="800" Height="480">
+    <Grid RowDefinitions="*,Auto"
+          Margin="12">
+        <Panel Grid.Row="0">
+            <Canvas>
+                <Polyline Points="100,100 200,200 400,150 300,350 600,250 650,150"
+                          Stroke="{DynamicResource ThemeForegroundBrush}"/>
+            </Canvas>
+            <local:BlurMask BlurEnabled="{Binding #BlurEnableCheckBox.IsChecked}"
+                            BlurRadius="{Binding #BlurRadiusSlider.Value}"/>
+        </Panel>
+        
+        <DockPanel Grid.Row="1">
+            <CheckBox x:Name="BlurEnableCheckBox" 
+                      DockPanel.Dock="Left"
+                      Content="Enable Blur"
+                      IsChecked="True"
+                      VerticalAlignment="Center"/>
+            
+            <TextBlock DockPanel.Dock="Right" 
+                       Text="{Binding #BlurRadiusSlider.Value, StringFormat={}{0:0.00}}"
+                       VerticalAlignment="Center"/>
+            <Slider x:Name="BlurRadiusSlider" 
+                    IsEnabled="{Binding #BlurEnableCheckBox.IsChecked}" 
+                    Minimum="0" 
+                    Maximum="10"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="12,0"/>
+        </DockPanel>
+    </Grid>
+</Window>
